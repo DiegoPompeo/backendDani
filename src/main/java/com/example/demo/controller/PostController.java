@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entidade.Post;
+import com.example.demo.services.PessoaService;
 import com.example.demo.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +25,9 @@ public class PostController {
         return postService.findAll();
     }
 
-    @GetMapping("listaPorEmailAutor/{emailAutor}")
-    public List<Post> readByEmailAutor(@PathVariable String emailAutor){
-        return postService.findByEmailAutor(emailAutor);
+    @GetMapping("listaPorEmailAutor/{emailAutor}/{idPessoa}")
+    public List<Post> readByEmailAutor(@PathVariable String emailAutor, @PathVariable Integer idPessoa){
+        return postService.findByEmailAutor(emailAutor, idPessoa);
     }
 
     @PutMapping("editarPost")
@@ -42,5 +43,10 @@ public class PostController {
     @DeleteMapping("deletaPost/{idPost}")
     public boolean delelePost(@PathVariable Integer idPost){
         return postService.deletePost(idPost);
+    }
+
+    @GetMapping("curtir/{idPessoaCurtiu}/{idPostCurtido}")
+    public Post curtiram(@PathVariable Integer idPessoaCurtiu, @PathVariable Integer idPostCurtido){
+        return postService.curtir(idPessoaCurtiu, idPostCurtido);
     }
 }

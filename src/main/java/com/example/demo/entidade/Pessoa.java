@@ -36,4 +36,9 @@ public class Pessoa {
     @CollectionTable(name="seguidor", joinColumns=@JoinColumn(name="seguidores_id"))
     @Column(name="id_seguidores")
     private List<Integer> seguidores;
+
+    @ElementCollection
+    @CollectionTable(name="post", joinColumns = @JoinColumn(name = "posts_id"))
+    @Column(name="id_post")
+    private List<Integer> postsCurtidos;
 }
