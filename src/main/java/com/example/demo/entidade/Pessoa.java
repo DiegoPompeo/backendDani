@@ -38,7 +38,5 @@ public class Pessoa {
     private List<Integer> seguidores;
 
     @ElementCollection
-    @CollectionTable(name="post", joinColumns = @JoinColumn(name = "posts_id"))
-    @Column(name="id_post")
     private List<Integer> postsCurtidos;
 }
