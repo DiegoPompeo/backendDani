@@ -29,6 +29,4 @@ public class Post {
     @CollectionTable(name="curtiram", joinColumns=@JoinColumn(name="curtiram_id"))
     @Column(name="id_curtiram")
     private List<Integer> pessoasCurtiram;
-
-    private String status;
 }

@@ -26,24 +26,12 @@ public class PostService {
         return null;
     }
 
-//    public List<Post> findByEmailAutor(String emailAutor) {
-//        return postRepository.findByEmailAutor(emailAutor);
-//    }
+    public List<Post> findByEmailAutor(String emailAutor) {
+        return postRepository.findByEmailAutor(emailAutor);
+    }
 
-    public List<Post> findByEmailAutor(String emailAutor, Integer idPessoa){
-        List<Post> lista = postRepository.findByEmailAutor(emailAutor);
-        Pessoa pessoa = pessoaRepository.findById(idPessoa).get();
-
-        for (Post post: lista) {
-            if (pessoa.getPostsCurtidos().contains(post.getId())) {
-                post.setStatus("Descurtir");
-                postRepository.save(post);
-            }
-            post.setStatus("Curtir");
-            postRepository.save(post);
-        }
-
-        return lista;
+    public boolean analisaPost(Integer idPost, Integer idPessoa){
+        return pessoaRepository.findById(idPessoa).get().getPostsCurtidos().contains(idPost);
     }
 
     public Post findById(Integer id) {

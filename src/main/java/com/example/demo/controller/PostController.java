@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.entidade.Post;
-import com.example.demo.services.PessoaService;
 import com.example.demo.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +24,14 @@ public class PostController {
         return postService.findAll();
     }
 
-    @GetMapping("listaPorEmailAutor/{emailAutor}/{idPessoa}")
-    public List<Post> readByEmailAutor(@PathVariable String emailAutor, @PathVariable Integer idPessoa){
-        return postService.findByEmailAutor(emailAutor, idPessoa);
+    @GetMapping("listaTodosPorEmail/{emailAutor}")
+    public List<Post> listaPorEmail(@PathVariable String emailAutor){
+        return postService.findByEmailAutor(emailAutor);
+    }
+
+    @GetMapping("analisaPost/{idPost}/{idPessoa}")
+    public boolean analisaPost(@PathVariable Integer idPost, @PathVariable Integer idPessoa){
+        return postService.analisaPost(idPost, idPessoa);
     }
 
     @PutMapping("editarPost")
