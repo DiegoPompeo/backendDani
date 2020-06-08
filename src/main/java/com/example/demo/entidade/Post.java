@@ -19,7 +19,7 @@ public class Post {
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
-    private Conteudo conteudo;
+    private String mensagem;
 
     private String emailAutor;
 

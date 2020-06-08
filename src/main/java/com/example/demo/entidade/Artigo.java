@@ -1,5 +1,6 @@
 package com.example.demo.entidade;
 
+import com.example.demo.model.Conteudo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,13 +14,13 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Curtida {
+public class Artigo {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
-    private Integer idPostCurtido;
+    private Conteudo conteudo;
 
-    private Integer idUsuarioCurtiu;
+    private String emailAutor;
 }

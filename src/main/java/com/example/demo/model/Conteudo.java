@@ -8,7 +8,6 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Conteudo {
     private String titulo;
-    private String conteudo;
     private String localDaPublicacao;
     private String anoDaPublicacao;
     private String url;

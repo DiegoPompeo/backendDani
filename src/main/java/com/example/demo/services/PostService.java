@@ -7,7 +7,6 @@ import com.example.demo.repositorio.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -58,7 +57,7 @@ public class PostService {
     public Post atualizaPost(Post post) {
         if (postRepository.existsById(post.getId())){
             Post post_update = postRepository.findById(post.getId()).get();
-            post_update.setConteudo(post.getConteudo());
+            post_update.setMensagem(post.getMensagem());
             post_update.setCurtidas(post.getCurtidas());
             return postRepository.save(post_update);
         }
