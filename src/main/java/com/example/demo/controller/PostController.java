@@ -50,7 +50,12 @@ public class PostController {
     }
 
     @GetMapping("curtir/{idPessoaCurtiu}/{idPostCurtido}")
-    public Post curtiram(@PathVariable Integer idPessoaCurtiu, @PathVariable Integer idPostCurtido){
+    public Post curtir(@PathVariable Integer idPessoaCurtiu, @PathVariable Integer idPostCurtido){
         return postService.curtir(idPessoaCurtiu, idPostCurtido);
+    }
+
+    @GetMapping("undoCurtir/{idPessoaCurtiu}/{idPostCurtido}")
+    public Post undoCurtir(@PathVariable Integer idPessoaCurtiu, @PathVariable Integer idPostCurtido){
+        return postService.undoCurtir(idPessoaCurtiu, idPostCurtido);
     }
 }

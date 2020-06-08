@@ -70,7 +70,24 @@ public class PostService {
         Post post = postRepository.findById(idPostCurtido).get();
 
         pessoa.getPostsCurtidos().add(idPostCurtido);
+
         post.getPessoasCurtiram().add(idPessoaCurtiu);
+        post.setCurtidas(post.getCurtidas() + 1);
+
+        postRepository.save(post);
+        pessoaRepository.save(pessoa);
+
+        return post;
+    }
+
+    public Post undoCurtir(Integer idPessoaCurtiu, Integer idPostCurtido){
+        Pessoa pessoa = pessoaRepository.findById(idPessoaCurtiu).get();
+        Post post = postRepository.findById(idPostCurtido).get();
+
+        pessoa.getPostsCurtidos().remove(idPostCurtido);
+
+        post.getPessoasCurtiram().remove(idPessoaCurtiu);
+        post.setCurtidas(post.getCurtidas() - 1);
 
         postRepository.save(post);
         pessoaRepository.save(pessoa);
