@@ -36,7 +36,7 @@ public class ArtigoService {
     }
 
     public boolean delete(Integer id){
-        if(!(artigoRepository.existsById(id))){
+        if(artigoRepository.existsById(id)){
             artigoRepository.deleteById(id);
             return true;
         }
