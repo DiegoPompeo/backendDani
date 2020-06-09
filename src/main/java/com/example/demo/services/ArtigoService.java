@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.entidade.Artigo;
+import com.example.demo.entidade.Post;
 import com.example.demo.repositorio.ArtigoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,13 +26,12 @@ public class ArtigoService {
     }
 
     public Artigo update(Artigo artigo){
-        Artigo _artigo = artigoRepository.findById(artigo.getId()).get();
-        if (_artigo != null){
+        if (artigoRepository.existsById(artigo.getId())){
+            Artigo _artigo = artigoRepository.findById(artigo.getId()).get();
             _artigo.setConteudo(artigo.getConteudo());
 
-            return  artigoRepository.save(_artigo);
+            return artigoRepository.save(_artigo);
         }
-
         return artigoRepository.save(artigo);
     }
 
