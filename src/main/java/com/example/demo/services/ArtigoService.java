@@ -1,7 +1,6 @@
 package com.example.demo.services;
 
 import com.example.demo.entidade.Artigo;
-import com.example.demo.entidade.Post;
 import com.example.demo.repositorio.ArtigoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
