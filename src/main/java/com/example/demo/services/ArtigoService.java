@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.entidade.Artigo;
 import com.example.demo.entidade.Pessoa;
+import com.example.demo.entidade.Post;
 import com.example.demo.model.Notificacao;
 import com.example.demo.repositorio.ArtigoRepository;
 import com.example.demo.repositorio.PessoaRepository;
@@ -64,5 +65,47 @@ public class ArtigoService {
             return true;
         }
         return false;
+    }
+
+    public boolean analisaArtigo(Integer idArtigo, Integer idPessoa) {
+        if (artigoRepository.findById(idArtigo).get() == null ||
+                pessoaRepository.findById(idPessoa).get() == null){
+            return false;
+        }
+        return pessoaRepository.findById(idPessoa).get().getArtigosCurtidos().contains(idArtigo);
+    }
+
+    public Artigo curtir(Integer idPessoaCurtiu, Integer idArtigoCurtido) {
+        Pessoa pessoa = pessoaRepository.findById(idPessoaCurtiu).get();
+        Artigo artigo = artigoRepository.findById(idArtigoCurtido).get();
+
+        pessoa.getArtigosCurtidos().add(idArtigoCurtido);
+
+        artigo.getMembrosCurtiram().add(idPessoaCurtiu);
+        artigo.setCurtidas(artigo.getCurtidas() + 1);
+
+        artigoRepository.save(artigo);
+        pessoaRepository.save(pessoa);
+
+        return artigo;
+    }
+
+    public Artigo undoCurtir(Integer idPessoaCurtiu, Integer idArtigoCurtido) {
+        Pessoa pessoa = pessoaRepository.findById(idPessoaCurtiu).get();
+        Artigo artigo = artigoRepository.findById(idArtigoCurtido).get();
+
+        pessoa.getArtigosCurtidos().remove(idArtigoCurtido);
+
+        artigo.getMembrosCurtiram().remove(idPessoaCurtiu);
+        artigo.setCurtidas(artigo.getCurtidas() - 1);
+
+        artigoRepository.save(artigo);
+        pessoaRepository.save(pessoa);
+
+        return artigo;
+    }
+
+    public List<Artigo> readAll() {
+        return artigoRepository.findAll();
     }
 }

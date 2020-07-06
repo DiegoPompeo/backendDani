@@ -38,4 +38,24 @@ public class ArtigoController {
     public boolean deletaArtigo(@PathVariable Integer idArtigo){
         return artigoService.delete(idArtigo);
     }
+
+    @GetMapping("analisaArtigo/{idArtigo}/{idPessoa}")
+    public boolean analisaArtigo(@PathVariable Integer idArtigo, @PathVariable Integer idPessoa){
+        return artigoService.analisaArtigo(idArtigo, idPessoa);
+    }
+
+    @GetMapping("curtir/{idPessoaCurtiu}/{idArtigoCurtido}")
+    public Artigo curtir(@PathVariable Integer idPessoaCurtiu, @PathVariable Integer idArtigoCurtido){
+        return artigoService.curtir(idPessoaCurtiu, idArtigoCurtido);
+    }
+
+    @GetMapping("undoCurtir/{idPessoaCurtiu}/{idArtigoCurtido}")
+    public Artigo undoCurtir(@PathVariable Integer idPessoaCurtiu, @PathVariable Integer idArtigoCurtido){
+        return artigoService.undoCurtir(idPessoaCurtiu, idArtigoCurtido);
+    }
+
+    @GetMapping("listaTodos")
+    public List<Artigo> listaAll(){
+        return artigoService.readAll();
+    }
 }
