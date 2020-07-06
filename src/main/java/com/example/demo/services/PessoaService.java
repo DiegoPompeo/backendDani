@@ -32,7 +32,13 @@ public class PessoaService {
     }
 
     public Pessoa findByEmail(String email) {
-        return pessoaRepository.findByEmail(email);
+        List<Pessoa> pessoas = pessoaRepository.findAll();
+        for (Pessoa pessoa: pessoas){
+            if (pessoa.getEmail().equals(email)) {
+                return pessoa;
+            }
+        }
+        return null;
     }
 
     public Pessoa login(Pessoa pessoa) {
@@ -69,7 +75,7 @@ public class PessoaService {
 
     public List<Pessoa> findAllExcept(String email) {
         List<Pessoa> lista = pessoaRepository.findAll();
-        Pessoa pessoa = pessoaRepository.findByEmail(email);
+        Pessoa pessoa = findByEmail(email);
         if (pessoa != null){
             for(Pessoa p: lista){
                 if (p == pessoa){
