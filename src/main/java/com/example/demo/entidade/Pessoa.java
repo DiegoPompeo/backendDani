@@ -19,6 +19,8 @@ public class Pessoa {
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
+    private String email;
+
     private Curriculo curriculo;
     private Formacao formacao;
     private InfoAdicionais infoAdicionais;

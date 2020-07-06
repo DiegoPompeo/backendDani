@@ -8,6 +8,5 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Informacao {
     private String nomePessoa;
-    private String email;
     private String senha;
 }
