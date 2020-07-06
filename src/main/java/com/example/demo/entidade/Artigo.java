@@ -6,9 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,4 +22,11 @@ public class Artigo {
     private Conteudo conteudo;
 
     private String emailAutor;
+
+    private Integer curtidas;
+
+    @ElementCollection
+    @CollectionTable(name="curtiramArtigo", joinColumns=@JoinColumn(name="curtiram_id"))
+    @Column(name="id_curtiram")
+    private List<Integer> membrosCurtiram;
 }

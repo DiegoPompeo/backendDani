@@ -1,7 +1,10 @@
 package com.example.demo.services;
 
 import com.example.demo.entidade.Artigo;
+import com.example.demo.entidade.Pessoa;
+import com.example.demo.model.Notificacao;
 import com.example.demo.repositorio.ArtigoRepository;
+import com.example.demo.repositorio.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +15,29 @@ public class ArtigoService {
     @Autowired
     private ArtigoRepository artigoRepository;
 
+    @Autowired
+    private PessoaRepository pessoaRepository;
+
     public Artigo create(Artigo artigo){
-        return artigoRepository.save(artigo);
+        Pessoa pessoa = pessoaRepository.findByEmail(artigo.getEmailAutor());
+        List<Integer> seguidores = pessoa.getSeguidores();
+        Artigo artigoSalvo = artigoRepository.save(artigo);
+
+        for (int i = 0; i < seguidores.size(); i++) {
+            Notificacao notificacao = new Notificacao();
+            Pessoa aux = pessoaRepository.findById(seguidores.get(i)).get();
+
+            notificacao.setIdPublicacao(artigoSalvo.getId());
+            notificacao.setVisualizacao(false);
+            notificacao.setTipoPublicacao("Artigo");
+            notificacao.setAutor(pessoa.getInformacao().getNomePessoa());
+            notificacao.setTitulo(artigo.getConteudo().getTitulo());
+
+            aux.getNotificacao().add(notificacao);
+
+            pessoaRepository.save(aux);
+        }
+        return artigoSalvo;
     }
 
     public List<Artigo> readAllByEmailAutor(String emailAutor){

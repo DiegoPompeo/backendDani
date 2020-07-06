@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.entidade.Pessoa;
 import com.example.demo.entidade.Post;
+import com.example.demo.model.Notificacao;
 import com.example.demo.repositorio.PessoaRepository;
 import com.example.demo.repositorio.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,26 @@ public class PostService {
     }
 
     public Post save(Post post) {
-        return postRepository.save(post);
+        Pessoa pessoa = pessoaRepository.findByEmail(post.getEmailAutor());
+        List<Integer> seguidores = pessoa.getSeguidores();
+        Post postSalvo = postRepository.save(post);
+
+        for (int i = 0; i < seguidores.size(); i++) {
+            Notificacao notificacao = new Notificacao();
+            Pessoa aux = pessoaRepository.findById(seguidores.get(i)).get();
+
+            notificacao.setIdPublicacao(postSalvo.getId());
+            notificacao.setVisualizacao(false);
+            notificacao.setTipoPublicacao("Post");
+            notificacao.setAutor(pessoa.getInformacao().getNomePessoa());
+            notificacao.setTitulo(post.getMensagem());
+
+            aux.getNotificacao().add(notificacao);
+
+            pessoaRepository.save(aux);
+        }
+
+        return postSalvo;
     }
 
     public Post atualizaPost(Post post) {

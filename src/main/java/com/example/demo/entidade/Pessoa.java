@@ -42,4 +42,10 @@ public class Pessoa {
 
     @ElementCollection
     private List<Integer> postsCurtidos;
+
+    @ElementCollection
+    private List<Integer> artigosCurtidos;
+
+    @ElementCollection
+    private List<Notificacao> notificacao;
 }
