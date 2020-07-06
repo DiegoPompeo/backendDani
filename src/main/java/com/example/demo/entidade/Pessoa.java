@@ -27,7 +27,8 @@ public class Pessoa {
     private Informacao informacao;
     private Trabalho trabalho;
 
-    private String interesses;
+    @ElementCollection
+    private List<String> interesses;
 
     @ElementCollection
     @CollectionTable(name="segue", joinColumns=@JoinColumn(name="seguindo_id"))
