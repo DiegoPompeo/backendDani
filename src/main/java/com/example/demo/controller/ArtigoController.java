@@ -25,7 +25,7 @@ public class ArtigoController {
     @PostMapping("arquivo/{idArtigo}")
     public Artigo criaArquivo(@RequestParam("myFile")MultipartFile file,
                                @PathVariable Integer idArtigo) throws IOException {
-        return artigoService.createArtigo(file, idArtigo);
+        return artigoService.createArquivo(file, idArtigo);
     }
 
     @GetMapping("listaPorEmail/{emailAutor}")

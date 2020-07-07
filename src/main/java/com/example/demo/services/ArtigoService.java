@@ -1,19 +1,19 @@
 package com.example.demo.services;
 
-import com.example.demo.entidade.Arquivo;
 import com.example.demo.entidade.Artigo;
 import com.example.demo.entidade.Pessoa;
-import com.example.demo.entidade.Post;
 import com.example.demo.model.Notificacao;
 import com.example.demo.repositorio.ArtigoRepository;
 import com.example.demo.repositorio.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
+@Transactional
 @Service
 public class ArtigoService {
     @Autowired
@@ -44,7 +44,7 @@ public class ArtigoService {
         return artigoSalvo;
     }
 
-    public Artigo createArtigo(MultipartFile file, Integer idArtigo) throws IOException {
+    public Artigo createArquivo(MultipartFile file, Integer idArtigo) throws IOException {
         Artigo artigoSalvo = artigoRepository.findById(idArtigo).get();
 
         artigoSalvo.getArquivo().setDocName(file.getName());
