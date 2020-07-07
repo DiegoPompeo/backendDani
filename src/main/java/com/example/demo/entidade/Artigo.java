@@ -29,4 +29,6 @@ public class Artigo {
     @CollectionTable(name="curtiramArtigo", joinColumns=@JoinColumn(name="curtiram_id"))
     @Column(name="id_curtiram")
     private List<Integer> membrosCurtiram;
+
+    private Arquivo arquivo;
 }

@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.entidade.Arquivo;
 import com.example.demo.entidade.Artigo;
 import com.example.demo.entidade.Pessoa;
 import com.example.demo.entidade.Post;
@@ -8,7 +9,9 @@ import com.example.demo.repositorio.ArtigoRepository;
 import com.example.demo.repositorio.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -19,7 +22,7 @@ public class ArtigoService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public Artigo create(Artigo artigo){
+    public Artigo create(Artigo artigo, MultipartFile file) throws IOException {
         Pessoa pessoa = pessoaRepository.findByEmail(artigo.getEmailAutor());
         List<Integer> seguidores = pessoa.getSeguidores();
         Artigo artigoSalvo = artigoRepository.save(artigo);
@@ -38,6 +41,10 @@ public class ArtigoService {
 
             pessoaRepository.save(aux);
         }
+        Arquivo arquivo = new Arquivo();
+        arquivo.setDocName(file.getOriginalFilename());
+        arquivo.setFile(file.getBytes());
+        arquivo.setType(file.getContentType());
         return artigoSalvo;
     }
 

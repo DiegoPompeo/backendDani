@@ -4,7 +4,9 @@ import com.example.demo.entidade.Artigo;
 import com.example.demo.services.ArtigoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -15,8 +17,8 @@ public class ArtigoController {
     private ArtigoService artigoService;
 
     @PostMapping("criaArtigo")
-    public Artigo criaArtigo(@RequestBody Artigo artigo){
-        return artigoService.create(artigo);
+    public Artigo criaArtigo(@RequestBody Artigo artigo, @RequestParam("myFile") MultipartFile file) throws IOException {
+        return artigoService.create(artigo, file);
     }
 
     @GetMapping("listaPorEmail/{emailAutor}")
