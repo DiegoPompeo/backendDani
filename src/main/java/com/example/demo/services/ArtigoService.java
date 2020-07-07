@@ -22,7 +22,7 @@ public class ArtigoService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public Artigo create(Artigo artigo) throws IOException {
+    public Artigo create(Artigo artigo){
         Pessoa pessoa = pessoaRepository.findByEmail(artigo.getEmailAutor());
         List<Integer> seguidores = pessoa.getSeguidores();
         Artigo artigoSalvo = artigoRepository.save(artigo);
@@ -42,6 +42,16 @@ public class ArtigoService {
             pessoaRepository.save(aux);
         }
         return artigoSalvo;
+    }
+
+    public Artigo createArtigo(MultipartFile file, Integer idArtigo) throws IOException {
+        Artigo artigoSalvo = artigoRepository.findById(idArtigo).get();
+
+        artigoSalvo.getArquivo().setDocName(file.getName());
+        artigoSalvo.getArquivo().setFile(file.getBytes());
+        artigoSalvo.getArquivo().setType(file.getContentType());
+
+        return artigoRepository.save(artigoSalvo);
     }
 
     public List<Artigo> readAllByEmailAutor(String emailAutor){
@@ -111,4 +121,6 @@ public class ArtigoService {
     public List<Artigo> readAll() {
         return artigoRepository.findAll();
     }
+
+
 }

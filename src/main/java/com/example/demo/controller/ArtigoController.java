@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entidade.Arquivo;
 import com.example.demo.entidade.Artigo;
 import com.example.demo.services.ArtigoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,14 @@ public class ArtigoController {
     private ArtigoService artigoService;
 
     @PostMapping("criaArtigo")
-    public Artigo criaArtigo(@RequestBody Artigo artigo) throws IOException {
+    public Artigo criaArtigo(@RequestBody Artigo artigo){
         return artigoService.create(artigo);
+    }
+
+    @PostMapping("arquivo/{idArtigo}")
+    public Artigo criaArquivo(@RequestParam("myFile")MultipartFile file,
+                               @PathVariable Integer idArtigo) throws IOException {
+        return artigoService.createArtigo(file, idArtigo);
     }
 
     @GetMapping("listaPorEmail/{emailAutor}")
