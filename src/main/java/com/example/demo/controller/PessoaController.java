@@ -75,7 +75,7 @@ public class PessoaController {
         return pessoaService.undoFollowPessoa(id, idDeixarDeSeguir);
     }
 
-    @GetMapping("/notificacao/{email}")
+    @GetMapping("notificacao/{email}")
     public List<Notificacao> getAllNotificacao(@PathVariable String email) {
         return pessoaService.getAllNotificacao(email);
     }
