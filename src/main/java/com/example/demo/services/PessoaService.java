@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.entidade.Pessoa;
 import com.example.demo.model.Informacao;
+import com.example.demo.model.Notificacao;
 import com.example.demo.repositorio.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -143,5 +144,9 @@ public class PessoaService {
         }
 
         return lista;
+    }
+
+    public List<Notificacao> getAllNotificacao(String email) {
+        return pessoaRepository.findByEmail(email).getNotificacao();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entidade.Pessoa;
+import com.example.demo.model.Notificacao;
 import com.example.demo.services.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -72,5 +73,10 @@ public class PessoaController {
     @GetMapping("unfollow/{id}/{idDeixarDeSeguir}")
     public List<Pessoa> unfollow(@PathVariable Integer id, @PathVariable Integer idDeixarDeSeguir) {
         return pessoaService.undoFollowPessoa(id, idDeixarDeSeguir);
+    }
+
+    @GetMapping("/notificacao/{email}")
+    public List<Notificacao> getAllNotificacao(@PathVariable String email) {
+        return pessoaService.getAllNotificacao(email);
     }
 }
