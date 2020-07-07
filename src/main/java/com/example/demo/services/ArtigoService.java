@@ -22,7 +22,7 @@ public class ArtigoService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public Artigo create(Artigo artigo, MultipartFile file) throws IOException {
+    public Artigo create(Artigo artigo) throws IOException {
         Pessoa pessoa = pessoaRepository.findByEmail(artigo.getEmailAutor());
         List<Integer> seguidores = pessoa.getSeguidores();
         Artigo artigoSalvo = artigoRepository.save(artigo);
@@ -41,10 +41,6 @@ public class ArtigoService {
 
             pessoaRepository.save(aux);
         }
-        Arquivo arquivo = new Arquivo();
-        arquivo.setDocName(file.getOriginalFilename());
-        arquivo.setFile(file.getBytes());
-        arquivo.setType(file.getContentType());
         return artigoSalvo;
     }
 

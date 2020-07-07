@@ -17,8 +17,8 @@ public class ArtigoController {
     private ArtigoService artigoService;
 
     @PostMapping("criaArtigo")
-    public Artigo criaArtigo(@RequestBody Artigo artigo, @RequestParam("myFile") MultipartFile file) throws IOException {
-        return artigoService.create(artigo, file);
+    public Artigo criaArtigo(@RequestBody Artigo artigo) throws IOException {
+        return artigoService.create(artigo);
     }
 
     @GetMapping("listaPorEmail/{emailAutor}")
