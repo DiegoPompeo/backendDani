@@ -47,7 +47,7 @@ public class ArtigoService {
     public Artigo createArquivo(MultipartFile file, Integer idArtigo) throws IOException {
         Artigo artigoSalvo = artigoRepository.findById(idArtigo).get();
 
-        artigoSalvo.getArquivo().setDocName(file.getName());
+        artigoSalvo.getArquivo().setDocName(file.getOriginalFilename());
         artigoSalvo.getArquivo().setFile(file.getBytes());
         artigoSalvo.getArquivo().setType(file.getContentType());
 
